@@ -1,26 +1,26 @@
-import { mj } from "./../config/config";
-import * as mailjet from "node-mailjet";
-import { Email } from "node-mailjet";
+import { mj } from './../config/config';
+import * as mailjet from 'node-mailjet';
+import { Email } from 'node-mailjet';
 
 export const mailer: Email.Client = mailjet.connect(mj.apikey, mj.apisecret);
 
 export const sendTemplatedEmail = (
   template: number,
-  receiverEmail: String,
-  receiverName: String,
+  receiverEmail: string,
+  receiverName: string,
   variables = {},
-  subject?: String,
-  senderEmail?: String,
-  senderName?: String
+  subject?: string,
+  senderEmail?: string,
+  senderName?: string,
 ) => {
   console.log(
-    "Sending email template n° ",
+    'Sending email template n° ',
     template,
-    " to ",
+    ' to ',
     receiverEmail,
     receiverName,
-    "with var ",
-    JSON.stringify(variables)
+    'with var ',
+    JSON.stringify(variables),
   );
   const opts: any = {
     Messages: [
@@ -45,10 +45,10 @@ export const sendTemplatedEmail = (
       Name: senderName,
     };
 
-  const request = mailer.post("send", { version: "v3.1" }).request(opts);
+  const request = mailer.post('send', { version: 'v3.1' }).request(opts);
   request.catch((err) => {
     console.error(
-      "Error sending email",
+      'Error sending email',
       template,
       receiverEmail,
       receiverName,
@@ -56,8 +56,8 @@ export const sendTemplatedEmail = (
       subject,
       senderEmail,
       senderName,
-      ". Error: ",
-      JSON.stringify(err)
+      '. Error: ',
+      JSON.stringify(err),
     );
   });
 };

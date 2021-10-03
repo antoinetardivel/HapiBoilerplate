@@ -1,7 +1,7 @@
-import { RequestAuth, Request } from "@hapi/hapi";
-import { ICredentials } from "../core/JWT";
+import { RequestAuth, Request } from '@hapi/hapi';
+import { ICredentials } from '../core/JWT';
 
-type IGenCredentials = Omit<ICredentials, "scope"> & { scope: string[] };
+type IGenCredentials = Omit<ICredentials, 'scope'> & { scope: string[] };
 
 export interface IRequestAuth extends RequestAuth {
   credentials: IGenCredentials;

@@ -1,57 +1,57 @@
-import { Plugin, PluginBase, Server } from "@hapi/hapi";
-import { ElementsController } from "./controllers";
-import { elementValidator } from "./validators";
-import { objectIdValidator } from "../../services/validators";
+import { Plugin, PluginBase, Server } from '@hapi/hapi';
+import { ElementsController } from './controllers';
+import { elementValidator } from './validators';
+import { objectIdValidator } from '../../services/validators';
 
 const controller = new ElementsController();
 
 export const plugin: Plugin<PluginBase<void>> = {
-  name: "elementRoutes",
-  version: "1.0.0",
+  name: 'elementRoutes',
+  version: '1.0.0',
   register: (server: Server) => {
     server.bind(controller);
     server.route([
       {
-        method: "POST",
-        path: "/elements",
+        method: 'POST',
+        path: '/elements',
         handler: controller.createElement,
         options: {
-          tags: ["api"],
+          tags: ['api'],
           validate: { payload: elementValidator },
         },
       },
       {
-        method: "GET",
-        path: "/elements",
+        method: 'GET',
+        path: '/elements',
         handler: controller.getElements,
         options: {
-          tags: ["api"],
+          tags: ['api'],
         },
       },
       {
-        method: "GET",
-        path: "/elements/{id}",
+        method: 'GET',
+        path: '/elements/{id}',
         handler: controller.getElements,
         options: {
-          tags: ["api"],
+          tags: ['api'],
           validate: { params: objectIdValidator },
         },
       },
       {
-        method: "PUT",
-        path: "/elements/{id}",
+        method: 'PUT',
+        path: '/elements/{id}',
         handler: controller.updateElement,
         options: {
-          tags: ["api"],
+          tags: ['api'],
           validate: { payload: elementValidator },
         },
       },
       {
-        method: "DELETE",
-        path: "/elements/{id}",
+        method: 'DELETE',
+        path: '/elements/{id}',
         handler: controller.deleteElement,
         options: {
-          tags: ["api"],
+          tags: ['api'],
           validate: { params: objectIdValidator },
         },
       },

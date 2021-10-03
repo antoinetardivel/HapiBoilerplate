@@ -1,28 +1,27 @@
-import { Plugin, PluginBase, Server } from "@hapi/hapi";
-import { UsersController } from "./controllers";
+import { Plugin, PluginBase, Server } from '@hapi/hapi';
+import { UsersController } from './controllers';
 import {
   activeUserValidation,
   createUserValidator,
   updateUserPasswordValidator,
   updateUserValidator,
-  userValidator,
-} from "./validators";
-import { objectIdValidator } from "../../services/validators";
+} from './validators';
+import { objectIdValidator } from '../../services/validators';
 
 const controller = new UsersController();
 
 export const plugin: Plugin<PluginBase<void>> = {
-  name: "usersRoutes",
-  version: "1.0.0",
+  name: 'usersRoutes',
+  version: '1.0.0',
   register: (server: Server) => {
     server.bind(controller);
     server.route([
       {
-        method: "POST",
-        path: "/users",
+        method: 'POST',
+        path: '/users',
         handler: controller.createUser,
         options: {
-          tags: ["api"],
+          tags: ['api'],
           validate: { payload: createUserValidator },
         },
       },
@@ -35,46 +34,46 @@ export const plugin: Plugin<PluginBase<void>> = {
       //   },
       // },
       {
-        method: "GET",
-        path: "/users",
+        method: 'GET',
+        path: '/users',
         handler: controller.getUsers,
         options: {
-          tags: ["api"],
+          tags: ['api'],
         },
       },
       {
-        method: "GET",
-        path: "/users/{id}",
+        method: 'GET',
+        path: '/users/{id}',
         handler: controller.getUsers,
         options: {
-          tags: ["api"],
+          tags: ['api'],
           validate: { params: objectIdValidator },
         },
       },
       {
-        method: "PUT",
-        path: "/users/{id}",
+        method: 'PUT',
+        path: '/users/{id}',
         handler: controller.updateUser,
         options: {
-          tags: ["api"],
+          tags: ['api'],
           validate: { payload: updateUserValidator },
         },
       },
       {
-        method: "PUT",
-        path: "/users/{id}/update-password",
+        method: 'PUT',
+        path: '/users/{id}/update-password',
         handler: controller.updateUserPassword,
         options: {
-          tags: ["api"],
+          tags: ['api'],
           validate: { payload: updateUserPasswordValidator },
         },
       },
       {
-        method: "PUT",
-        path: "/active-account",
+        method: 'PUT',
+        path: '/active-account',
         handler: controller.updateUserActivationState,
         options: {
-          tags: ["api"],
+          tags: ['api'],
           validate: { payload: activeUserValidation },
           auth: false,
         },
@@ -88,11 +87,11 @@ export const plugin: Plugin<PluginBase<void>> = {
       //   },
       // },
       {
-        method: "DELETE",
-        path: "/users/{id}",
+        method: 'DELETE',
+        path: '/users/{id}',
         handler: controller.deleteUsers,
         options: {
-          tags: ["api"],
+          tags: ['api'],
           validate: { params: objectIdValidator },
         },
       },

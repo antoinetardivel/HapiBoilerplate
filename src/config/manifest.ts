@@ -1,7 +1,7 @@
-import { Manifest } from "@hapi/glue";
-import { Request, ResponseToolkit } from "@hapi/hapi";
-import { badRequest } from "@hapi/boom";
-import { port } from "./config";
+import { Manifest } from '@hapi/glue';
+import { Request, ResponseToolkit } from '@hapi/hapi';
+import { badRequest } from '@hapi/boom';
+import { port } from './config';
 
 export const manifest: Manifest = {
   server: {
@@ -9,11 +9,11 @@ export const manifest: Manifest = {
       cors: true,
       security: true,
       response: {
-        failAction: "log",
+        failAction: 'log',
       },
       validate: {
         failAction: async (request: Request, h: ResponseToolkit, err) => {
-          if (process.env.NODE_ENV !== "production") {
+          if (process.env.NODE_ENV !== 'production') {
             return badRequest(err?.message);
           } else {
             return badRequest();
@@ -27,29 +27,29 @@ export const manifest: Manifest = {
     },
     port,
     debug: {
-      request: ["error"],
+      request: ['error'],
     },
   },
 
   register: {
     plugins: [
       {
-        plugin: "hapi-auth-jwt2",
+        plugin: 'hapi-auth-jwt2',
       },
       {
-        plugin: "./core/JWT",
+        plugin: './core/JWT',
       },
       {
-        plugin: "./api/elements",
-        options: { routes: { prefix: "/elements" } },
+        plugin: './api/elements',
+        options: { routes: { prefix: '/elements' } },
       },
       {
-        plugin: "./api/users",
-        options: { routes: { prefix: "/users" } },
+        plugin: './api/users',
+        options: { routes: { prefix: '/users' } },
       },
       {
-        plugin: "./api/auth",
-        options: { routes: { prefix: "/" } },
+        plugin: './api/auth',
+        options: { routes: { prefix: '/' } },
       },
     ],
   },

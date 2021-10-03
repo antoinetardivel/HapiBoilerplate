@@ -1,13 +1,10 @@
-import { Boom, notFound } from "@hapi/boom";
-import { ResponseObject, ResponseToolkit } from "@hapi/hapi";
-import { Element, elementModel } from "./types";
-import { IRequest } from "../../interfaces/request";
+import { Boom, notFound } from '@hapi/boom';
+import { ResponseObject, ResponseToolkit } from '@hapi/hapi';
+import { Element, elementModel } from './types';
+import { IRequest } from '../../interfaces/request';
 
 export class ElementsController {
-  async createElement(
-    req: IRequest,
-    h: ResponseToolkit
-  ): Promise<ResponseObject | Boom> {
+  async createElement(req: IRequest, h: ResponseToolkit): Promise<ResponseObject | Boom> {
     try {
       const elementPayload = req.payload as Element;
 
@@ -15,20 +12,15 @@ export class ElementsController {
 
       return h.response({ elementId: element._id }).code(201);
     } catch (err) {
-      console.error("Error during creation ", err);
+      console.error('Error during creation ', err);
       return h.response(err).code(500);
     }
   }
 
-  async getElements(
-    req: IRequest,
-    h: ResponseToolkit
-  ): Promise<ResponseObject | Boom> {
+  async getElements(req: IRequest, h: ResponseToolkit): Promise<ResponseObject | Boom> {
     try {
       if (req.params.id) {
-        const element = await elementModel
-          .findById(req.params.id)
-          .lean({ autopopulate: true });
+        const element = await elementModel.findById(req.params.id).lean({ autopopulate: true });
 
         if (!element) return notFound("Element doesn't exist.");
 
@@ -41,15 +33,12 @@ export class ElementsController {
 
       return h.response(elements);
     } catch (err) {
-      console.error("Error during process ", err);
+      console.error('Error during process ', err);
       return h.response(err).code(500);
     }
   }
 
-  async updateElement(
-    req: IRequest,
-    h: ResponseToolkit
-  ): Promise<ResponseObject | Boom> {
+  async updateElement(req: IRequest, h: ResponseToolkit): Promise<ResponseObject | Boom> {
     try {
       const elementPayload = req.payload as Element;
 
@@ -58,27 +47,21 @@ export class ElementsController {
         .lean();
       if (!element) return notFound("Element doesn't exist.");
 
-      await elementModel.updateOne(
-        { _id: element._id },
-        { ...elementPayload, id: element._id }
-      );
+      await elementModel.updateOne({ _id: element._id }, { ...elementPayload, id: element._id });
 
       return h.response({ elementId: element._id }).code(201);
     } catch (err) {
-      console.error("Error during update ", err);
+      console.error('Error during update ', err);
       return h.response(err).code(500);
     }
   }
 
-  async deleteElement(
-    req: IRequest,
-    h: ResponseToolkit
-  ): Promise<ResponseObject | Boom> {
+  async deleteElement(req: IRequest, h: ResponseToolkit): Promise<ResponseObject | Boom> {
     try {
       await elementModel.deleteOne({ _id: req.params.id });
       return h.response().code(204);
     } catch (err) {
-      console.error("Error during deletion ", err);
+      console.error('Error during deletion ', err);
       return h.response(err).code(500);
     }
   }

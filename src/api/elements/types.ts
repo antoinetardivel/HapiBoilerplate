@@ -1,14 +1,14 @@
-import { getModelForClass, prop } from "@typegoose/typegoose";
-import { Types } from "mongoose";
+import { getModelForClass, prop } from '@typegoose/typegoose';
+import { Types } from 'mongoose';
 
 export class Element {
   public _id?: Types.ObjectId;
 
   @prop({ required: true })
-  public name!: String;
+  public name!: string;
 
-  @prop({ required: true, default: "" })
-  public description!: String;
+  @prop({ required: true, default: '' })
+  public description!: string;
 }
 
 export const elementModel = getModelForClass(Element);

@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose';
 
 const elementSchema = new Schema(
   {
@@ -10,7 +10,7 @@ const elementSchema = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-export default model("Task", elementSchema);
+export default model('Task', elementSchema);

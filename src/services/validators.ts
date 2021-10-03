@@ -1,4 +1,4 @@
-import * as joi from "joi";
+import * as joi from 'joi';
 
 const objectIdRegExp = /^[0-9a-fA-F]{24}$/;
 const objectId = joi.string().regex(objectIdRegExp);

@@ -1,4 +1,4 @@
-import * as joi from "joi";
+import * as joi from 'joi';
 
 export const loginValidator = joi
   .object()
@@ -8,9 +8,7 @@ export const loginValidator = joi
   })
   .unknown(false);
 
-export const forgotPasswordValidator = joi
-  .object()
-  .keys({ email: joi.string().required() });
+export const forgotPasswordValidator = joi.object().keys({ email: joi.string().required() });
 
 export const resetPasswordValidator = joi
   .object()
